@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f4f8;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        h3 {
+            font-size: 28px;
+            margin: 20px 0;
+            color: #1a237e;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #616161;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-color: #e8eaf6;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .section.visible {
+            opacity: 1;
+        }
+        
+        .section img {
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .section img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+
+            function onScroll() {
+                const windowHeight = window.innerHeight;
+                const scrollY = window.scrollY;
+
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top + scrollY;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollY + windowHeight >= sectionTop + sectionHeight / 4) {
+                        section.classList.add('visible');
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="section">
+            <h3>Levents® - Popular Streetwear brand / Lì - ven /</h3>
+            <p>Chúng tôi là thương hiệu thời trang Đường phố nổi tiếng với định hướng cung cấp sản phẩm có chất lượng cao, sành điệu với giá thành hợp lý</p>
+            <img src="img/levenscard.png" alt="">
+        </div>
+
+        <div class="section">
+            <h3>Chúng tôi là ai?</h3>
+            <p>Levents® là lựa chọn hàng đầu dành cho các tín đồ thời trang Đường phố sành điệu. Sứ mệnh của Levents® là trao quyền cho thế hệ trẻ toàn thế giới tự do thể hiện phong cách thông qua thời trang, thương hiệu vượt qua ranh giới của thời trang đường phố bằng cách không ngừng sáng tạo các trang phục với các bộ sưu tập độc đáo.</p>
+            <img src="img/2.png" alt="">
+        </div>
+        <div class="section">
+            <h3>Biểu tượng thời trang thời đại mới</h3>
+            <p>Levents®, mỗi sản phẩm đều mang theo sự cá tính và sành điệu, đại diện cho hình ảnh giới trẻ hiện đại - biểu tượng cho sự dẫn đầu phong cách thời đại mới. Quần áo có thể sẽ lỗi thời nhưng phong cách thời trang thì không. Tầm nhìn độc đáo của Levents® chính là để mỗi cá nhân tự do thể hiện phong cách khi khoác lên mình những sản phẩm được tạo nên từ sự đam mê, mang giá trị của thế hệ mới, đầy trẻ trung, năng động và luôn không ngừng khẳng định bản thân, hướng đến tương lai. Sự đầu tư từ chất lượng đóng gói, bao bì sản phẩm đến mỗi thước phim, hình ảnh cho tới cách làm chủ được nghệ thuật sắc màu và chỉn chu trong từng chi tiết đã đưa Levents® trở thành một trong những thương hiệu thời trang Đường phố được giới trẻ yêu thích, tin dùng hàng đầu tại Việt Nam.</p>
+            <img src="img/3.png" alt="">
+        </div>
+    </div>
+</body>
+
+</html>

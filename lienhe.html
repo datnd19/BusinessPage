@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/lienhe.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            font-size: 18px;
+            color: #616161;
+            margin: 0 0 10px;
+        }
+        
+        a {
+            font-size: 18px;
+            color: #1a237e;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #5c6bc0;
+        }
+        
+        table {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        th,
+        td {
+            text-align: left;
+            font-size: 18px;
+            color: #616161;
+            padding: 10px;
+        }
+        
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 18px;
+            color: #616161;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            background-color: #1a237e;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #5c6bc0;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        body {
+            animation: fadeIn 1s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2>THÔNG TIN LIÊN HỆ !</h2>
+        <p>EMAIL: huynhthaonghiii@gmail.com</p>
+        <p>Hotline: 0854613665</p>
+        <p><a href="https://www.facebook.com/profile.php?id=100040431413609&mibextid=ZbWKwL">Facebook (check inbox 24/24)</a>
+        </p>
+        <form>
+            <table>
+                <tr>
+                    <td><b>Họ Và Tên</b>
+                    </td>
+                    <td>
+                        <input type="text" placeholder="Nhập Tên Của Bạn">
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Phản Ánh Sản Phẩm</b>
+                    </td>
+                    <td>
+                        <input type="checkbox"> Hàng lỗi
+                        <br>
+                        <input type="checkbox">Không đúng size/màu
+                        <br>
+                        <input type="checkbox">Không đúng sản phẩm đã mua
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Ngày mua hàng</b>
+                    </td>
+                    <td>
+                        <input type="text" placeholder="nhập vào ngày mua hàng">
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Ảnh kiểm tra hàng</b>
+                    </td>
+                    <td>
+                        <input type="file">
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>góp ý/đánh giá</b>
+                    </td>
+                    <td>
+                        <textarea name="" id="" cols="30" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Gửi phản hồi">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        document.querySelector('input[type="submit"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Xử lý logic cho form ở đây
+            // Ví dụ: Kiểm tra tên, ngày mua hàng, ảnh, góp ý/đánh giá có hợp lệ hay không
+            // Nếu hợp lệ, gửi dữ liệu lên server
+            alert('Cảm ơn bạn đã gửi phản hồi! Chúng tôi sẽ xem xét và phản hồi sớm nhất có thể.');
+        });
+    </script>
+</body>
+
+</html>

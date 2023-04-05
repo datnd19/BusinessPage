@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        crossorigin="anonymous">
+
+    <!-- Jquery -->
+    <script src="lib/Jquery/Jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- owl carousel libraries -->
+    <link rel="stylesheet" href="lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="lib/owlcarousel/owl.theme.default.min.css">
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+    <!-- Slider -->
+    <link rel="stylesheet" href="lib/ion.rangeSlider-2.2.0/css/ion.rangeSlider.css">
+    <link rel="stylesheet" href="lib/ion.rangeSlider-2.2.0/css/ion.rangeSlider.skinHTML5.css">
+    <script src="lib/ion.rangeSlider-2.2.0/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- tidio - live chat -->
+    <!-- <script src="//code.tidio.co/bfiiplaaohclhqwes5xivoizqkq56guu.js"></script> -->
+
+    <!-- our files -->
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/topnav.css">
+    <link rel="stylesheet" href="css/header.css">
+    <!-- js -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <!---Wrapper for slides--->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Web bán quần áo</title>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="header group">
+            <div class="smallmenu" id="openmenu" onclick="smallmenu(1)">≡</div>
+            <div style="display: none;" class="smallmenu" id="closemenu" onclick="smallmenu(0)">×</div>
+            <div class="logo">
+                <a href="">
+                    <img src="img/logo3.jpg" alt="Trang chủ Smartphone Store" title="Trang chủ Smartphone Store">
+                </a>
+            </div> <!-- End Logo -->
+            <div class="content">
+                <div class="search-header">
+                    <form class="input-search" method="get" action="index.html">
+                        <div class="autocomplete">
+                            <input id="search-box" name="search" autocomplete="off" type="text"
+                                placeholder="Nhập từ khóa tìm kiếm...">
+                            <button type="submit">
+                                <i class="fa fa-search"></i>
+                                Tìm kiếm
+                            </button>
+                        </div>
+                    </form> <!-- End Form search -->
+                </div> <!-- End Search header -->
+                <div class="tools-member">
+                    <div class="member">
+                        <a onclick="checkTaiKhoan()" id="btnTaiKhoan">
+                            <i class="fa fa-user"></i>
+
+                            <a href="taikhoan.html" class="signup">Đăng Nhập</a>
+                        </a>
+                        <div class="menuMember hide">
+                            <a href="nguoidung.html">Trang người dùng</a>
+                            <a onclick="checkDangXuat();">Đăng xuất</a>
+                        </div>
+                    </div> <!-- End Member -->
+                    <div class="cart" id="cart-div">
+                        <a href="javascript:void(0)" onclick="displayCart()">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>Giỏ hàng</span>
+                            <span class="cart-number">0</span>
+                        </a>
+                    </div>
+                    <div id="order-summary"></div>
+                    <script>
+                        // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
+                        function updateCartNumber() {
+                            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+                            document.querySelector(".cart-number").textContent = totalItems;
+                        }
+
+                        document.getElementById("cart-div").addEventListener("click", (event) => {
+                            event.preventDefault(); // Ngăn trình duyệt chuyển hướng đến trang giohang.html
+
+                            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+                            if (totalItems === 0) {
+                                alert("Giỏ hàng trống!");
+                                return;
+                            }
+
+                            const confirmation = confirm(`Bạn đã mua ${totalItems} món hàng, bạn có chắc không?`);
+                            const orderSummary = document.getElementById("order-summary");
+
+                            if (confirmation) {
+                                alert("Đơn hàng thành công!");
+                                orderSummary.style.display = "block";
+                                orderSummary.innerHTML = cart.map(item => `
+                                    <div>
+                                        <p>Tên sản phẩm: ${item.name}</p>
+                                        <p>Số lượng: ${item.quantity}</p>
+                                        <p>Giá: ${item.price}đ</p>
+                                    </div>
+                                `).join("");
+                                localStorage.removeItem("cart");
+                                updateCartNumber();
+                            } else {
+                                alert("Bạn đã hủy đơn hàng!");
+                                orderSummary.style.display = "none";
+                            }
+                        });
+
+                        // Cập nhật số lượng sản phẩm trong giỏ hàng khi tải trang
+                        updateCartNumber();
+                    </script>
+                </div><!-- End Tools Member -->
+            </div> <!-- End Content -->
+        </div>
+    </div>
+    <div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/11.png" class="d-block w-100" alt="New York">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>VIỆT NAM</h3>
+                    <p>The atmosphere in New York is lorem ipsum.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="img/3.png" class="d-block w-100" alt="Chicago">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>LOCALBRAND</h3>
+                    <p>Thank you, Chicago - A night we won't forget.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="img/22.png" class="d-block w-100" alt="Los Angeles">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>LEVENTS</h3>
+                    <p>Even though the traffic was a mess, we had the best time playing at Venice Beach!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="top-nav group">
+        <section>
+            <ul class="top-nav-quicklink flexContain">
+                <li><a href=""><i class="fa fa-home"></i> Trang chủ</a></li>
+                <li><a href=""><i class="fa fa-newspaper-o"></i> Danh mục</a></li>
+                <li><a href="lienhe.html"><i class="fa fa-phone"></i> Liên hệ</a></li>
+                <li><a href="thongtin.html"><i class="fa fa-wrench"></i> Thông tin</a></li>
+            </ul> <!-- End Quick link -->
+        </section><!-- End Section -->
+    </div>
+
+    <div class="classify">
+        <div class="content">
+            <div class="product">
+                <div class="description">
+                    <h1 class="title">Men</h1>
+                    <p class="desc">Hot trend 2023</p>
+                </div>
+                <div class="img"><img
+                        src="./img/portrait-handsome-teenager-white-background-young-man-portrait-handsome-cheerful-teenager-white-background-112856114.jpg"
+                        alt="" class="image"></div>
+            </div>
+            <div class="product">
+                <div class="description">
+                    <h1 class="title">Women</h1>
+                    <p class="desc">Hot trend 2023</p>
+                </div>
+                <div class="img"><img src="./img/girlt.jpg" alt="" class="image"></div>
+            </div>
+            <div class="product">
+                <div class="description">
+                    <h1 class="title">Accessories</h1>
+                    <p class="desc">Hot trend 2023</p>
+                </div>
+                <div class="img"><img src="./img/hat.jpg" alt="" class="image"></div>
+            </div>
+        </div>
+    </div>
+    <div class="productoverview">
+        <div class="content">
+            <h2 class="title">Product overview</h2>
+        </div>
+    </div>
+
+    <div class="ingredient">
+        <div class="content">
+            <div class="cta">
+                <button class="btn">
+                    <p class="desc">All Products</p>
+                </button>
+                <button class="btn">
+                    <p class="desc">Men</p>
+                </button>
+                <button class="btn">
+                    <p class="desc">Women</p>
+                </button>
+                <button class="btn">
+                    <p class="desc">Bag</p>
+                </button>
+                <button class="btn">
+                    <p class="desc">Shoes</p>
+                </button>
+                <button class="btn">
+                    <p class="desc">Ring and hat</p>
+                </button>
+            </div>
+            <div class="searching">
+                <button class="filter">
+                    <img src="./img/filter-control-adjustment-icon-on-white-background-free-vector.webp" alt=""
+                        class="pic">
+                    <p class="desc">Filter</p>
+                </button>
+                <button class="seacrh">
+                    <img src="/img/search.png" alt="" class="pic">
+                    <p class="desc">Search</p>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <!-- <div class="col-md-12"> -->
+            <div class="row">
+                <div class="products">
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao7.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại: Levent</p>
+                                <h3 class="product-name"><a href="#">Áo LEVENT </a></h3>
+                                <h4 class="product-price">$350.000 <del class="product-old-price">$450.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/quan6.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại:Swe</p>
+                                <h3 class="product-name"><a href="#">QUẦN DÀI</a></h3>
+                                <h4 class="product-price">$350.000 <del class="product-old-price">$400.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao9.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại: Levent </p>
+                                <h3 class="product-name"><a href="#">Áo POLO</a></h3>
+                                <h4 class="product-price">$400.000 <del class="product-old-price">$500.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao8.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại:Levent </p>
+                                <h3 class="product-name"><a href="#">Áo hoodie</a></h3>
+                                <h4 class="product-price">$400.000 <del class="product-old-price">$500.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao1.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại:Levent </p>
+                                <h3 class="product-name"><a href="#">Áo Thun</a></h3>
+                                <h4 class="product-price">$300.000 <del class="product-old-price">$400.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao2.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại:Swe </p>
+                                <h3 class="product-name"><a href="#">Áo SWE</a></h3>
+                                <h4 class="product-price">$200.000 <del class="product-old-price">$250.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao3.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại:Swe </p>
+                                <h3 class="product-name"><a href="#">Áo Hình </a></h3>
+                                <h4 class="product-price">$150.000 <del class="product-old-price">$180.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/ao4.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại:Swe </p>
+                                <h3 class="product-name"><a href="#">Áo KARM</a></h3>
+                                <h4 class="product-price">$400.000 <del class="product-old-price">$500.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="product-img" onclick="toggleDetails(this)">
+                                <img src="img/quan5.png" alt="" class="pic">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">Loại::Levent </p>
+                                <h3 class="product-name"><a href="#">Quần Short</a></h3>
+                                <h4 class="product-price">$200.000 <del class="product-old-price">$300.000</del></h4>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn" onclick="addToCart(event)"><i
+                                        class="fa fa-shopping-cart">MUA
+                                        NGAY</i></button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="load">
+                <button class="desc">Load more</button>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div><br>
+
+    <footer class="footer">
+        <div class="body">
+            <div class="content">
+                <p class="name">SHOP: IVYmoda<br>
+                <div class="description">
+                    <div class="categories">
+                        <h3 class="title">Categories</h3>
+                        <ul>
+                            <li class="cate"><a href="#!" class="click">
+                                    <p class="desc">Women</p>
+                                </a></li>
+                            <li class="cate"><a href="#!" class="click">
+                                    <p class="desc">Men</p>
+                                </a></li>
+                            <li class="cate"><a href="#!" class="click">
+                                    <p class="desc">Shoes</p>
+                                </a></li>
+                            <li class="cate"><a href="#!" class="click">
+                                    <p class="desc">Bag</p>
+                                </a></li>
+                            <li class="cate"><a href="#!" class="click">
+                                    <p class="desc">Ring and Hat</p>
+                                </a></li>
+                        </ul>
+                    </div>
+                    <div class="contact">
+                        <h3 class="title">Contact</h3>
+                        <div class="block">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="mailto:huynhthaonghiii@gmail.com" target="blank" class="desc"> huynhthaonghiii@gmail.com</a>
+                        </div>
+                        <div class="block">
+                            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                        <a href="https://www.facebook.com/profile.php?id=100040431413609&mibextid=ZbWKwL"
+                            class="desc" target="blank"> Facebook</a>
+                        </div>
+                        <div class="block">
+                            <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+                        <a href="tel: 0854613665" class="desc"target="blank"> Phone</a>
+                        </div>
+
+                        <div class="block lastblock">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <a href="https://goo.gl/maps/2rbgNkrVED7eE7fLA" class="desc last"target="blank"> Đường Số 5,Khu Dân Thạnh Mỹ,Phường Lê Bình,Quận Cái Răng,Cần Thơ</a>
+                        </div>
+
+                    </div>
+                    <div class="maps"><iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1330.2800572726755!2d105.7583271871806!3d10.001607314890492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zxJDGsOG7nW5nIFPhu5EgNSxLaHUgRMOibiBUaOG6oW5oIE3hu7ksUGjGsOG7nW5nIEzDqiBCw6xuaCxRdeG6rW4gQ8OhaSBSxINuZyxD4bqnbiBUaMah!5e0!3m2!1sen!2s!4v1680710284577!5m2!1sen!2s" width="450" height="400"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                </div>
+            </div>
+        </div>
+        </p>
+    </footer>
+
+    <script>
+        function toggleDetails(element) {
+            const productBody = element.parentElement.querySelector('.product-body');
+            productBody.classList.toggle('show-details');
+        }
+
+        function addToCart(event) {
+            const productDiv = event.target.closest('.product');
+            const name = productDiv.querySelector('.product-name a').textContent;
+            const priceStr = productDiv.querySelector('.product-price').textContent;
+            const price = parseInt(priceStr.replace(/[^0-9]/g, ''));
+
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const productIndex = cart.findIndex(item => item.name === name);
+
+            if (productIndex >= 0) {
+                cart[productIndex].quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartNumber();
+        }
+
+        function updateCartNumber() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+            document.querySelector('.cart-number').textContent = totalItems;
+        }
+    </script>
+
+</body>
+
+</html>

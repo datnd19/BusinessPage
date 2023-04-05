@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+        
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background-color: #0056B3;
+        }
+        
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <form id="loginForm" class="form" action="">
+            <div>
+                <label for="fullname">HỌ VÀ TÊN:</label>
+                <br>
+                <input id="fullname" class="form-control" type="text" tabindex="1">
+                <p id="fullnameError" class="error"></p>
+            </div>
+            <div>
+                <label for="emailOrPhone">EMAIL/SỐ ĐIỆN THOẠI:</label>
+                <br>
+                <input id="emailOrPhone" class="form-control" type="text">
+                <p id="emailOrPhoneError" class="error"></p>
+            </div>
+            <label for="password">NHẬP MẬT KHẨU</label>
+            <br>
+            <input id="password" class="form-control" type="password">
+            <p id="passwordError" class="error"></p>
+            <hr>
+            <div>
+                <button id="loginBtn" tabindex="3">Đăng Nhập</button>
+                <button id="registerBtn" tabindex="4">Đăng Ký</button>
+                <button id="cancelBtn" tabindex="5">THOÁT</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const loginForm = document.getElementById('loginForm');
+    const fullname = document.getElementById('fullname');
+    const emailOrPhone = document.getElementById('emailOrPhone');
+    const password = document.getElementById('password');
+    const fullnameError = document.getElementById('fullnameError');
+    const emailOrPhoneError = document.getElementById('emailOrPhoneError');
+    const passwordError = document.getElementById('passwordError');
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    function isValidName(name) {
+        const nameRegex = /^[a-zA-ZÀ-ỹ\s]+$/;
+        return nameRegex.test(name);
+    }
+
+    function isValidEmail(email) {
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        return emailRegex.test(email);
+    }
+
+    function isValidPhone(phone) {
+        const phoneRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+        return phoneRegex.test(phone);
+    }
+
+    function isValidPassword(password) {
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return passwordRegex.test(password);
+    }
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let isValid = true;
+
+        if (fullname.value.trim() === '') {
+            isValid = false;
+            fullnameError.textContent = 'Họ và tên không được để trống';
+        } else {
+            fullnameError.textContent = '';
+        }
+
+        if (emailOrPhone.value.trim() === '') {
+            isValid = false;
+            emailOrPhoneError.textContent = 'Email/số điện thoại không được để trống';
+        } else {
+            emailOrPhoneError.textContent = '';
+        }
+
+        if (password.value.trim() === '') {
+            isValid = false;
+            passwordError.textContent = 'Mật khẩu không được để trống';
+        } else {
+            passwordError.textContent = '';
+        }
+
+
+
+        if (!isValidName(fullname.value.trim())) {
+            isValid = false;
+            fullnameError.textContent = 'Họ và tên không hợp lệ';
+        } else {
+            fullnameError.textContent = '';
+        }
+
+        const input = emailOrPhone.value.trim();
+        if (!isValidEmail(input) && !isValidPhone(input)) {
+            isValid = false;
+            emailOrPhoneError.textContent = 'Email/số điện thoại không hợp lệ';
+        } else {
+            emailOrPhoneError.textContent = '';
+        }
+
+        if (!isValidPassword(password.value.trim())) {
+            isValid = false;
+            passwordError.textContent = 'Mật khẩu không hợp lệ (ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số)';
+        } else {
+            passwordError.textContent = '';
+        }
+
+        if (isValid) {
+            console.log('Đăng nhập thành công');
+            // Thực hiện các hành động khi đăng nhập thành công, ví dụ chuyển hướng đến trang chủ hoặc hiển thị thông báo thành công.
+            // Thực hiện các hành động khi đăng nhập thành công, ví dụ chuyển hướng đến
+            // trang chủ hoặc hiển thị thông báo thành công.
+            alert('Đăng nhập thành công');
+            // window.location.href = 'trang-chu.html';
+        }
+    });
+
+    registerBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Chuyển hướng đến trang đăng ký hoặc hiển thị form đăng ký
+        // window.location.href = 'dang-ky.html';
+        console.log('Chuyển đến trang đăng ký');
+    });
+
+    cancelBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Hủy bỏ việc đăng nhập và đóng form hoặc chuyển hướng đến trang khác
+        // window.location.href = 'trang-chu.html';
+        console.log('Đã hủy đăng nhập');
+    });
+</script>
+
+</body>
+
+</html>
